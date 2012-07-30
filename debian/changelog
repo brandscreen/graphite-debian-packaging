@@ -1,0 +1,12 @@
+python-graphite (0.9.9-0) unstable; urgency=low
+
+  * Update to 0.9.9 serie
+
+ -- Bruno Clermont <bruno.clermont@gmail.com>  Wed, 14 Dec 2011 13:22:48 -0400
+
+graphite (0.9.6-1UNRELEASED5) maverick; urgency=low
+
+  * Initial release (Closes: #0)
+
+ -- Ilya Zakreuski <izakreuski@gmail.com>  Tue, 14 Sep 2010 20:02:48 +0300
+

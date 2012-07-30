@@ -1,0 +1,83 @@
+#! /usr/bin/make -f
+include /usr/share/quilt/quilt.make
+
+SHELL = /bin/bash
+
+# all versions
+PYVERS	:= $(shell pyversions -vs)
+# default version
+VER	:= $(shell /usr/bin/python -c 'import sys; print sys.version[:3]')
+
+build: $(QUILT_STAMPFN)
+
+build-stamp: $(PYVERS:%=build-python%)
+	touch $@
+build-python%:
+	python$* setup.py build
+	touch $@
+
+clean: unpatch
+	rm -rf *-stamp build-python* build
+	rm -rf $(addprefix debian/,$(packages)) debian/files debian/substvars
+	rm -rf _trial_temp test.log
+	find . -name "*.pyc" |xargs -r rm
+	dh_clean
+
+install: build-stamp install-prereq $(PYVERS:%=install-python%)
+
+install-prereq: build-stamp
+	dh_testdir
+	dh_testroot
+	dh_clean -k
+
+install-python%: install-prereq
+	: # python-graphite
+	python$* setup.py install --root=debian/python-graphite --install-layout=deb
+	-find debian/python-graphite -name '*.py[co]' | xargs rm -f
+
+	ln -s /etc/graphite/settings.py \
+		debian/python-graphite/usr/lib/python$*/dist-packages/graphite//local_settings.py
+
+	# configurations example
+	mkdir -p debian/python-graphite/usr/share/python-graphite
+
+	mv debian/python-graphite/usr/conf \
+		debian/python-graphite/usr/share/python-graphite/example
+
+	# settings
+	rm -f debian/python-graphite/usr/pyshared/graphite
+
+	# storage
+	rm -rf debian/python-graphite/usr/storage
+
+	# remove duplicate js stuff
+	rm -rf debian/python-graphite/usr/webapp/content/scriptaculous \
+		debian/python-graphite/usr/webapp/content/jquery.js \
+		debian/python-graphite/usr/webapp/content/window/prototype.js \
+
+	# static files
+	mv debian/python-graphite/usr/webapp/content \
+		debian/python-graphite/usr/share/python-graphite/static
+	rmdir debian/python-graphite/usr/webapp
+
+binary-indep: build install
+	dh_testdir
+	dh_testroot
+	dh_install
+	dh_installchangelogs -i
+	dh_installdirs
+	dh_installdocs
+	dh_installmenu -i
+	dh_compress -i -X.py
+	dh_fixperms -i
+	dh_python2 -i
+	dh_installdeb -i
+	dh_gencontrol -i
+	dh_md5sums -i
+	dh_builddeb -i
+
+binary-arch: build install
+# nothing to do
+
+binary: binary-indep binary-arch
+.PHONY: build clean binary-indep binary-arch binary install install-prereq

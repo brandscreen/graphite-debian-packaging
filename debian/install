@@ -1,0 +1,7 @@
+debian/conf/apache2.conf etc/graphite
+
+debian/conf/wsgi.py usr/share/python-graphite
+
+debian/conf/settings.py etc/graphite
+
+debian/conf/manage-graphite.py usr/bin

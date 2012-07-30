@@ -1,0 +1,14 @@
+#!/bin/sh
+
+set -e
+
+#DEBHELPER#
+
+#for i in `find /var/lib/graphite` ; do
+## only do something when setting exists
+    #if dpkg-statoverride --list $i >/dev/null 2>&1
+    #then
+        #dpkg-statoverride --remove $i
+    #fi
+#done
+

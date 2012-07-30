@@ -1,0 +1,35 @@
+#!/bin/sh
+
+case "$1" in
+    configure)
+        echo "Do not forget to create a PostgreSQL or MySQL database and edit /etc/graphite/settings.py"
+        chown graphite /var/log/graphite/webapp
+# initialize graphite database with essential data. syncdb will only
+# create tables for models which have not yet been installed.  It will
+# never issue ALTER TABLE statements to match changes made to a model
+# class after installation.
+
+        #update-python-modules -p graphite.public
+        #su www-data -p -c "django-admin syncdb --pythonpath=/usr/lib/pymodules/python2.6 --settings graphite.settings --noinput"
+
+# override file permissions in /var/lib/graphite
+
+        #for i in `find /var/lib/graphite -maxdepth 2 -type d` ; do
+# only do something when no setting exists
+            #if ! dpkg-statoverride --list $i >/dev/null 2>&1
+            #then
+                #dpkg-statoverride --update --add www-data www-data 4755 $i
+            #fi
+        #done
+        ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+        ;;
+
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        exit 1
+        ;;
+esac
+
+#DEBHELPER#

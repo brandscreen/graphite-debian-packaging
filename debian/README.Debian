@@ -1,0 +1,50 @@
+------------
+Installation
+------------
+
+Choose your favorite database supported by Django.
+
+For better result, choose PostgreSQL.
+
+Apply the recipe for database of your choice below.
+And the recipe for the web server of your choice.
+
+=========
+Databases
+=========
+
+PostgreSQL
+==========
+
+As root:
+
+# apt-get install postgresql
+# su - postgres
+postgres$ createuser -R -S -l -D -P graphite
+Enter password for new role:
+Enter it again:
+postgres$ createdb -O graphite graphite
+
+If you pick the unsecure graphite password, you do not need to edit
+/etc/graphite/settings.py
+
+MySQL
+=====
+
+I used to know that, but I tend to forget easily
+So if you can paste how to create a db and user in MySQL
+
+===========
+Web Servers
+===========
+
+Apache
+======
+
+# apt-get install apache2
+
+If you plan to only run Graphite on this Apache instance, just:
+
+# rm -f /etc/apache/sites-enabled/000-default
+# ln -s /etc/graphite/apache.conf /etc/apache/sites-enabled/graphite.conf
+# /etc/init.d/apache2 restart
