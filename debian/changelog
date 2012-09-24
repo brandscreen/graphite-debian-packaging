@@ -1,6 +1,12 @@
+python-graphite (0.9.10-0) unstable; urgency=low
+
+  * Updated to 0.9.10 series
+
+ -- David Gillies <dgillies@brandscreen.com>  Mon, 24 Sep 2012 17:20:08 +1000
+
 python-graphite (0.9.9-0) unstable; urgency=low
 
-  * Update to 0.9.9 serie
+  * Update to 0.9.9 series
 
  -- Bruno Clermont <bruno.clermont@gmail.com>  Wed, 14 Dec 2011 13:22:48 -0400
 

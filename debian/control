@@ -8,7 +8,8 @@ Build-Depends-Indep: python-support (>= 0.90.0),
 Standards-Version: 3.9.1
 XS-Python-Version: all
 Homepage: http://graphite.wikidot.com
-Vcs-Bzr: https://code.launchpad.net/~graphite-dev/graphite/debian-packaging
+Vcs-Git: git://github.com/graphite-project/graphite-web.git
+Vcs-Browser: https://github.com/graphite-project/graphite-web
 
 Package: python-graphite
 Architecture: all
